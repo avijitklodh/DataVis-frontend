@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+    -webkit-columns: 100px 3;
 }
 
 .App-logo {
@@ -20,3 +21,34 @@
 .App-link {
   color: #09d3ac;
 }
+
+.Data{
+  float: left;
+  height:100vh;
+  width:20vw;
+  background: lightblue;
+  font-style: italic;
+  color: maroon;
+  text-align: center;
+}
+
+.Graph{
+  float: right;
+  height:90vh;
+  width:38vw;
+  background: white;
+  color: maroon;
+  text-align: center;
+}
+
+
+.Filter{
+  float: right;
+  height:100vh;
+  width:22vw;
+  background: yellow;
+  font-style: italic;
+  overflow-y: scroll;
+  color: maroon;
+  text-align: center;
+  }

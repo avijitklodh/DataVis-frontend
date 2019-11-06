@@ -15,10 +15,10 @@ class FilterChampion extends Component {
 
   render() {
 
-    let filteredArr = this.props.champObjs.filter(champObj => { return champObj.name.includes(this.state.search)})
+    let filteredArr = this.props.champObjs.filter(champObj => { return champObj.name.toLowerCase().includes(this.state.search)})
 
     return (
-      <div>
+      <div className = "champFilter">
         <h3>Select a Champion!</h3>
          <input onChange={this.handleChange} value={this.state.search}></input>
         {filteredArr.map(champObj => < Champion champObj = {champObj} selectChamp = {this.props.selectChamp} key = {champObj.api_id}/>)}

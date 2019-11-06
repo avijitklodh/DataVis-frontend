@@ -52,3 +52,15 @@
   color: maroon;
   text-align: center;
   }
+
+.champFilter{
+  height:30vh;
+  width:22vw;
+  overflow-y: scroll;
+}
+
+.itemFilter{
+  height:35vh;
+  width:22vw;
+  overflow-y: scroll;
+}

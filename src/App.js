@@ -9,7 +9,8 @@ class App extends Component {
 
   state = {
     levelCounter: 1,
-    champObj: {},
+    champObj: [],
+    itemObjs: [],
     chartdata: {
       labels: ["HP", "MP", "Attack Damage", "Attack Range", "Armor","Spellblock", "Movespeed"],
       datasets: [{
@@ -19,8 +20,30 @@ class App extends Component {
     }
   }
 
-selectChamp = (champObj) => {
+applyItem = (itemObj) => {
+  let currentChamp = this.state.champObj
+  console.log(currentChamp.attackdamage)
+  console.log(itemObj)
+  this.setState({
+    chartdata:{
+    labels: ["HP", "MP", "Attack Damage", "Attack Range", "Armor","Spellblock", "Movespeed"],
+    datasets:[{
+      label: "Stats",
+      data: [
+        currentChamp.hp += itemObj.flatHPPoolMod,
+        currentChamp.mp += itemObj.flatMPPoolMod,
+        currentChamp.attackdamage += itemObj.flatPhysicalDamageMod,
+        currentChamp.attackrange,
+        currentChamp.armor += itemObj.flatArmorMod,
+        currentChamp.spellblock += itemObj.flatSpellBlockMod,
+        currentChamp.movespeed += itemObj.flatMovementSpeedMod
+      ]
+    }]}
+  })
 
+}
+
+selectChamp = (champObj) => {
     this.setState({
       levelCounter: 1,
       champObj: champObj,
@@ -36,13 +59,19 @@ selectChamp = (champObj) => {
           champObj.armor,
           champObj.spellblock,
           champObj.movespeed
-
-
         ]
       }]}})
+      fetch("http://localhost:3000/items")
+      .then(r => r.json())
+      .then(itemsArr => {
+        // console.log(championsArr)
+        this.setState({
+          itemObjs: itemsArr
+        })
+      })
   }
 
-  levelUp = () => {
+  levelUp = (itemObj) => {
     if(this.state.levelCounter < 18){
     let currentChamp = this.state.champObj
     this.setState({
@@ -53,11 +82,11 @@ selectChamp = (champObj) => {
       datasets:[{
         label: "Stats",
         data: [
-          currentChamp.hp += currentChamp.hpperlevel,
-          currentChamp.attackdamage += currentChamp.attackdamageperlevel,
-          currentChamp.armor += currentChamp.armorperlevel,
-          currentChamp.spellblock += currentChamp.spellblockperlevel,
-          currentChamp.mp += currentChamp.mpperlevel
+          currentChamp.hp += itemObj.hpperlevel,
+          currentChamp.attackdamage += itemObj.attackdamageperlevel,
+          currentChamp.armor += itemObj.armorperlevel,
+          currentChamp.spellblock += itemObj.spellblockperlevel,
+          currentChamp.mp += itemObj.mpperlevel
         ]
       }]}})
     }
@@ -77,7 +106,7 @@ render(){
       </div>
 
       <div className="Filter">
-      < FilterContainer selectChamp = {this.selectChamp} champObj = {this.state.champObj}/>
+      < FilterContainer selectChamp = {this.selectChamp} champObj = {this.state.champObj} applyItem = {this.applyItem} itemObjs = {this.state.itemObjs}/>
       </div>
 
     </div>

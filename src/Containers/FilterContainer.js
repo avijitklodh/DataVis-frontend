@@ -19,7 +19,6 @@ class FilterContainer extends Component {
         champObjs: championsArr
       })
     })
-
   }
 
   render() {
@@ -27,7 +26,7 @@ class FilterContainer extends Component {
       <div>
         <SelectedContent champObj = {this.props.champObj} />
         <FilterChampion champObjs = {this.state.champObjs} selectChamp = {this.props.selectChamp}/>
-        <FilterItem/>
+        <FilterItem itemObjs = {this.props.itemObjs} applyItem = {this.props.applyItem}/>
       </div>
     );
   }

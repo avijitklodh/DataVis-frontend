@@ -6,7 +6,7 @@ class GraphShowComponent extends Component {
 
 
   whatRenders = () => {
-    console.log(this.props.CurrentGraphType)
+    // console.log(this.props.CurrentGraphType)
   let  graphType = this.props.CurrentGraphType
       switch(graphType){
         case "Line":

@@ -24,9 +24,9 @@ class FilterContainer extends Component {
   render() {
     return (
       <div>
+        <FilterItem itemObjs = {this.props.itemObjs} applyItem = {this.props.applyItem}/>
         <SelectedContent champObj = {this.props.champObj} />
         <FilterChampion champObjs = {this.state.champObjs} selectChamp = {this.props.selectChamp}/>
-        <FilterItem itemObjs = {this.props.itemObjs} applyItem = {this.props.applyItem}/>
       </div>
     );
   }

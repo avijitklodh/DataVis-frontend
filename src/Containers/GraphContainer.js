@@ -18,11 +18,10 @@ class GraphContainer extends Component {
   render() {
     return (
       <div>
-        <h2>Hello from GraphContainer</h2>
         <div>
         <TypesOfGraphs clickhandler = {this.clickhandler}/>
         <GraphShowComponent champObj = {this.props.champObj} chartdata = {this.props.chartdata} CurrentGraphType = {this.state.CurrentGraphType} levelUp = {this.props.levelUp}/>
-        <Description/>
+        <Description champObj = {this.props.champObj}/>
         </div>
       </div>
     );

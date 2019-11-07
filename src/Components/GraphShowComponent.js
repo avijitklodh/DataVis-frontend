@@ -68,8 +68,7 @@ class GraphShowComponent extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Hello from GraphShowComponent</h3>
+      <div className = "graphShow">
           {this.whatRenders()}
           <button onClick = {this.props.levelUp}>Level up!</button>
       </div>

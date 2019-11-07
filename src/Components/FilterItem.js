@@ -21,6 +21,7 @@ ifItemsShouldRender = () => {
     let filteredArr = this.props.itemObjs.filter(itemObj => { return itemObj.name.toLowerCase().includes(this.state.search)})
     return(
       <>
+      <h5>Select an Item!</h5>
       <input onChange={this.handleChange} value={this.state.search}></input>
       { filteredArr.map(itemObj => < Item itemObj = {itemObj} key = {itemObj.api_id} applyItem = {this.props.applyItem}/>) }
       </>
@@ -30,7 +31,6 @@ ifItemsShouldRender = () => {
   render() {
     return (
       <div className = "itemFilter" >
-        <h3>Hello from FilterItem</h3>
           {this.ifItemsShouldRender()}
 
       </div>

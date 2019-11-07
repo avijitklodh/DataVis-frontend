@@ -44,6 +44,7 @@ applyItem = (itemObj) => {
 }
 
 selectChamp = (champObj) => {
+  console.log(champObj)
     this.setState({
       levelCounter: 1,
       champObj: champObj,
@@ -71,26 +72,27 @@ selectChamp = (champObj) => {
       })
   }
 
-  levelUp = (itemObj) => {
+  levelUp = (selectedChamp) => {
     if(this.state.levelCounter < 18){
-    let currentChamp = this.state.champObj
+    let selectedChamp = this.state.champObj
     this.setState({
       levelCounter: this.state.levelCounter + 1,
       chartdata:{
-      labels: ["HP", "Attack Damage", "Armor","Spellblock", "MP"],
+      labels: ["HP", "MP", "Attack Damage", "Attack Range", "Armor","Spellblock", "Movespeed"],
 
       datasets:[{
         label: "Stats",
         data: [
-          currentChamp.hp += itemObj.hpperlevel,
-          currentChamp.attackdamage += itemObj.attackdamageperlevel,
-          currentChamp.armor += itemObj.armorperlevel,
-          currentChamp.spellblock += itemObj.spellblockperlevel,
-          currentChamp.mp += itemObj.mpperlevel
+          selectedChamp.hp += selectedChamp.hpperlevel,
+          selectedChamp.mp += selectedChamp.mpperlevel,
+          selectedChamp.attackdamage += selectedChamp.attackdamageperlevel,
+          selectedChamp.attackrange,
+          selectedChamp.armor += selectedChamp.armorperlevel,
+          selectedChamp.spellblock += selectedChamp.spellblockperlevel,
+          selectedChamp.movespeed
         ]
       }]}})
     }
-    console.log(this.state.champObj)
   }
 
 render(){
@@ -102,7 +104,7 @@ render(){
       </div>
 
       <div className="Graph">
-      < GraphContainer chartdata = {this.state.chartdata} levelUp = {this.levelUp}/>
+      < GraphContainer chartdata = {this.state.chartdata} levelUp = {this.levelUp} champObj = {this.state.champObj}/>
       </div>
 
       <div className="Filter">

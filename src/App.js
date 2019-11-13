@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import DataContainer from './Containers/DataContainer'
+import Dataset from './Components/Dataset'
 import FilterContainer from './Containers/FilterContainer'
 import GraphContainer from './Containers/GraphContainer'
+import CustomGraphContainer from './Containers/CustomGraphContainer'
 
 class App extends Component {
 
   state = {
+    CurrentGraphType: "Bar",
+    sample: true,
     levelCounter: 1,
     champObj: [],
     itemObjs: [],
@@ -18,6 +21,12 @@ class App extends Component {
         data: []
       }]
     }
+  }
+
+  clickhandler = (event) => {
+    this.setState({
+      CurrentGraphType: event.target.innerHTML
+    })
   }
 
 applyItem = (itemObj) => {
@@ -95,22 +104,41 @@ selectChamp = (champObj) => {
     }
   }
 
-render(){
-  return (
-    <div className="App" >
-
-      <div className="Data" >
-      < DataContainer />
-      </div>
-
-      <div className="Graph">
-      < GraphContainer chartdata = {this.state.chartdata} levelUp = {this.levelUp} champObj = {this.state.champObj}/>
+  sampleOrCustom = () => {
+    if (this.state.sample === true) {
+      return(
+        <>
+        <div className="Graph">
+      < GraphContainer chartdata = {this.state.chartdata} levelUp = {this.levelUp} champObj = {this.state.champObj} CurrentGraphType = {this.state.CurrentGraphType} clickhandler = {this.clickhandler}/>
       </div>
 
       <div className="Filter">
       < FilterContainer selectChamp = {this.selectChamp} champObj = {this.state.champObj} applyItem = {this.applyItem} itemObjs = {this.state.itemObjs}/>
       </div>
+      </>
+    )
+    }
+    return(
+      <div className="Graph" >
+        < CustomGraphContainer clickhandler = {this.clickhandler} CurrentGraphType = {this.state.CurrentGraphType}/>
+      </div>
+    )
+  }
 
+  changeRender = () => {
+    this.setState({
+      sample: this.state.sample ? false : true
+    })
+  }
+
+render(){
+  return (
+    <div className="App" >
+
+      <div className="Data" >
+      < Dataset changeRender = {this.changeRender} sample = {this.state.sample}/>
+      </div>
+      {this.sampleOrCustom()}
     </div>
   );
   }

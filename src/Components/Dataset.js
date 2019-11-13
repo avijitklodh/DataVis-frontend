@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 
 class Dataset extends Component {
 
+  renderedText = () => {
+    return this.props.sample ? "Create your own data" : "Check out League of Legend data"
+  }
+
   render() {
     return (
       <div>
-        <h3>Hello from Dataset</h3>
+        <button onClick = {this.props.changeRender}>{this.renderedText()}</button>
       </div>
     );
   }

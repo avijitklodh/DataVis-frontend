@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 
 class Champion extends Component {
 
-  // <ul>
-  //   <li onClick = {() => this.props.selectChamp(this.props.champObj)}>{this.props.champObj.name}</li>
-  // </ul>
-
   render() {
     return (
       <div onClick = {() => this.props.selectChamp(this.props.champObj)} >

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { Bar, Line, Pie, Radar, Polar, Doughnut } from 'react-chartjs-2';
 
-class GraphShowComponent extends Component {
-
-
-
+class Graph extends Component {
   whatRenders = () => {
     // console.log(this.props.CurrentGraphType)
   let  graphType = this.props.CurrentGraphType
@@ -69,7 +66,6 @@ class GraphShowComponent extends Component {
   render() {
     return (
       <div className = "graphShow">
-          <button onClick = {this.props.levelUp}>Level up!</button>
           {this.whatRenders()}
       </div>
     );
@@ -77,4 +73,4 @@ class GraphShowComponent extends Component {
 
 }
 
-export default GraphShowComponent;
+export default Graph;

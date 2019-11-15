@@ -14,21 +14,21 @@ class GraphShowComponent extends Component {
      data={this.props.chartdata}
      width={300}
      height={300}
-     options={{ maintainAspectRatio: true }}
+     options={{ maintainAspectRatio: false }}
     />)
       case "Bar":
     return(<Bar
      data={this.props.chartdata}
      width={300}
      height={300}
-     options={{ maintainAspectRatio: true }}
+     options={{ maintainAspectRatio: false }}
     />)
       case "Pie":
     return (<Pie
      data={this.props.chartdata}
      width={300}
      height={300}
-     options={{ maintainAspectRatio: true }}
+     options={{ maintainAspectRatio: false }}
     />)
       case "Radar":
       return(
@@ -36,7 +36,7 @@ class GraphShowComponent extends Component {
      data={this.props.chartdata}
      width={300}
      height={300}
-     options={{ maintainAspectRatio: true }}
+     options={{ maintainAspectRatio: false }}
     />)
     case "Doughnut":
     return(
@@ -44,7 +44,7 @@ class GraphShowComponent extends Component {
      data={this.props.chartdata}
      width={300}
      height={300}
-     options={{ maintainAspectRatio: true }}
+     options={{ maintainAspectRatio: false }}
     />)
     case "Polar":
     return(
@@ -52,7 +52,7 @@ class GraphShowComponent extends Component {
      data={this.props.chartdata}
      width={300}
      height={300}
-     options={{ maintainAspectRatio: true }}
+     options={{ maintainAspectRatio: false }}
     />)
     break;
     default:
@@ -61,7 +61,7 @@ class GraphShowComponent extends Component {
    data={this.props.chartdata}
    width={300}
    height={300}
-   options={{ maintainAspectRatio: true }}
+   options={{ maintainAspectRatio: false }}
    />);
   }
   }
@@ -69,8 +69,8 @@ class GraphShowComponent extends Component {
   render() {
     return (
       <div className = "graphShow">
-          <button onClick = {this.props.levelUp}>Level up!</button>
           {this.whatRenders()}
+          <button className = "LevelUpButton" onClick = {this.props.levelUp}>Level up!</button>
       </div>
     );
   }

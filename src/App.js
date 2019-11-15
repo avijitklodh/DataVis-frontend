@@ -18,26 +18,42 @@ class App extends Component {
       labels: ["HP", "MP", "Attack Damage", "Attack Range", "Armor","Spellblock", "Movespeed"],
       datasets: [{
         label: "Stats",
-        data: []
+        borderColor: "#80b6f4",
+        fill: false,
+        data: [],
+        backgroundColor: [
+          'green',
+          'blue',
+          'red',
+          'purple',
+          'brown',
+          'aqua',
+          'yellow'
+        ]
       }]
     }
   }
 
-  clickhandler = (event) => {
-    this.setState({
-      CurrentGraphType: event.target.innerHTML
+  componentDidMount(){
+    fetch("http://localhost:3000/champions")
+    .then(r => r.json())
+    .then(championsArr => {
+      // console.log(championsArr)
+      this.setState({
+        champObj: championsArr[97]
+      })
     })
   }
 
 applyItem = (itemObj) => {
   let currentChamp = this.state.champObj
-  console.log(currentChamp.attackdamage)
-  console.log(itemObj)
   this.setState({
     chartdata:{
     labels: ["HP", "MP", "Attack Damage", "Attack Range", "Armor","Spellblock", "Movespeed"],
     datasets:[{
       label: "Stats",
+      borderColor: "#80b6f4",
+      fill: false,
       data: [
         currentChamp.hp += itemObj.flatHPPoolMod,
         currentChamp.mp += itemObj.flatMPPoolMod,
@@ -46,6 +62,15 @@ applyItem = (itemObj) => {
         currentChamp.armor += itemObj.flatArmorMod,
         currentChamp.spellblock += itemObj.flatSpellBlockMod,
         currentChamp.movespeed += itemObj.flatMovementSpeedMod
+      ],
+      backgroundColor: [
+        'green',
+        'blue',
+        'red',
+        'purple',
+        'brown',
+        'aqua',
+        'yellow'
       ]
     }]}
   })
@@ -53,6 +78,7 @@ applyItem = (itemObj) => {
 }
 
 selectChamp = (champObj) => {
+  champObj.image.slice(0,-4)
   console.log(champObj)
     this.setState({
       levelCounter: 1,
@@ -61,6 +87,8 @@ selectChamp = (champObj) => {
       labels: ["HP", "MP", "Attack Damage", "Attack Range", "Armor","Spellblock", "Movespeed"],
       datasets:[{
         label: "Stats",
+        borderColor: "#80b6f4",
+        fill: false,
         data: [
           champObj.hp,
           champObj.mp,
@@ -69,6 +97,15 @@ selectChamp = (champObj) => {
           champObj.armor,
           champObj.spellblock,
           champObj.movespeed
+        ],
+        backgroundColor: [
+          'green',
+          'blue',
+          'red',
+          'purple',
+          'brown',
+          'aqua',
+          'yellow'
         ]
       }]}})
       fetch("http://localhost:3000/items")
@@ -91,6 +128,8 @@ selectChamp = (champObj) => {
 
       datasets:[{
         label: "Stats",
+        borderColor: "#80b6f4",
+        fill: false,
         data: [
           selectedChamp.hp += selectedChamp.hpperlevel,
           selectedChamp.mp += selectedChamp.mpperlevel,
@@ -99,6 +138,15 @@ selectChamp = (champObj) => {
           selectedChamp.armor += selectedChamp.armorperlevel,
           selectedChamp.spellblock += selectedChamp.spellblockperlevel,
           selectedChamp.movespeed
+        ],
+        backgroundColor: [
+          'green',
+          'blue',
+          'red',
+          'purple',
+          'brown',
+          'aqua',
+          'yellow'
         ]
       }]}})
     }
@@ -108,20 +156,22 @@ selectChamp = (champObj) => {
     if (this.state.sample === true) {
       return(
         <>
+
         <div className="Graph">
-      < GraphContainer chartdata = {this.state.chartdata} levelUp = {this.levelUp} champObj = {this.state.champObj} CurrentGraphType = {this.state.CurrentGraphType} clickhandler = {this.clickhandler}/>
+      < GraphContainer chartdata = {this.state.chartdata} levelUp = {this.levelUp} champObj = {this.state.champObj} CurrentGraphType = {this.state.CurrentGraphType}  linekhandler = {this.linekhandler} barhandler = {this.barhandler} piehandler = {this.piehandler} radarhandler = {this.radarhandler} doughnuthandler = {this.doughnuthandler} polarkhandler = {this.polarkhandler} />
       </div>
 
       <div className="Filter">
       < FilterContainer selectChamp = {this.selectChamp} champObj = {this.state.champObj} applyItem = {this.applyItem} itemObjs = {this.state.itemObjs}/>
       </div>
+
       </>
     )
     }
     return(
-      <div className="Graph" >
-        < CustomGraphContainer clickhandler = {this.clickhandler} CurrentGraphType = {this.state.CurrentGraphType}/>
-      </div>
+
+        < CustomGraphContainer linekhandler = {this.linekhandler} barhandler = {this.barhandler} piehandler = {this.piehandler} radarhandler = {this.radarhandler} doughnuthandler = {this.doughnuthandler} polarkhandler = {this.polarkhandler}   CurrentGraphType = {this.state.CurrentGraphType}/>
+
     )
   }
 
@@ -131,14 +181,57 @@ selectChamp = (champObj) => {
     })
   }
 
+linekhandler = () => {
+  console.log("hits")
+  this.setState({
+    CurrentGraphType: "Line"
+  })
+}
+barhandler = () => {
+  this.setState({
+    CurrentGraphType: "Bar"
+  })
+}
+piehandler = () => {
+  this.setState({
+    CurrentGraphType: "Pie"
+  })
+}
+radarhandler = () => {
+  this.setState({
+    CurrentGraphType: "Radar"
+  })
+}
+doughnuthandler = () => {
+  this.setState({
+    CurrentGraphType: "Doughnut"
+  })
+}
+polarkhandler = () => {
+  this.setState({
+    CurrentGraphType: "Polar"
+  })
+}
+
+
 render(){
+
+var  appStyle = {
+    width: "100%",
+    height: "800px",
+    // backgroundImage: `url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${this.state.champObj.name === "Ryze" ? "Ryze" : this.state.champObj.api_id }_0.jpg)`,
+    // background: "rgba(255, 249, 192, 0.1)"
+  }
+
   return (
-    <div className="App" >
+    <div style = {appStyle} className="App" >
 
       <div className="Data" >
       < Dataset changeRender = {this.changeRender} sample = {this.state.sample}/>
-      </div>
+      </div >
+      <div className="Everything">
       {this.sampleOrCustom()}
+      </div>
     </div>
   );
   }

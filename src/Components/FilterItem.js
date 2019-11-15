@@ -5,7 +5,7 @@ import Item from './Item'
 class FilterItem extends Component {
 
   state = {
-    search: []
+    search: ""
   }
 
   handleChange = (event) => {
@@ -14,16 +14,23 @@ class FilterItem extends Component {
     })
   }
 
+  lowerCaseSearch = () => {
+    return this.state.search ? this.state.search.toLowerCase() : ""
+  }
+
 ifItemsShouldRender = () => {
   // console.log( this.props.itemObjs.length)
   if (this.props.itemObjs.length > 0) {
-    console.log("hits here")
-    let filteredArr = this.props.itemObjs.filter(itemObj => { return itemObj.name.toLowerCase().includes(this.state.search)})
+    let filteredArr = this.props.itemObjs.filter(itemObj => { return itemObj.name.toLowerCase().includes(this.lowerCaseSearch())})
     return(
       <>
+      <div className = "itemSearchBar">
       <h5>Select an Item!</h5>
       <input onChange={this.handleChange} value={this.state.search}></input>
+      </div>
+      <div className = "itemArray">
       { filteredArr.map(itemObj => < Item itemObj = {itemObj} key = {itemObj.api_id} applyItem = {this.props.applyItem}/>) }
+      </div>
       </>
     )
   }

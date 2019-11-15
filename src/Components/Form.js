@@ -20,6 +20,7 @@ adddata = (e) => {
     this.setState((prevState) => ({
       datas: [...prevState.datas, {xaxis:"", yaxis:""}],
     }));
+  this.props.passdataup(this.state)
   }
 handleSubmit = (e) => {
   e.preventDefault()
@@ -30,10 +31,10 @@ render() {
     return (
       <>
       <form onSubmit={this.handleSubmit} onChange={this.handleChange} >
-        <label htmlFor="title">Title</label>
+        <label htmlFor="title">Title </label>
         <input type="text" name="title" id="title" value={title} />
             <br/>
-        <label htmlFor="xaxis">label</label>
+        <label htmlFor="xaxis">label </label>
         <input type="text" name="label" id="label" value={label} />
             <br/>
             <div>

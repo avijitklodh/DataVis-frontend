@@ -12,7 +12,7 @@ class SelectedContent extends Component {
 
   render() {
     return (
-      <div>
+      <div className = "SelectedContent">
         {this.whichImageToRender()}
       </div>
     );
